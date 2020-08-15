@@ -1,1 +1,5 @@
 theme: jekyll-theme-cayman
+
+layout: page
+title: "Discord Metadata"
+permalink: /classes/DiscordMetadata
