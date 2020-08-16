@@ -1,98 +1,89 @@
-# Introdução
+## Descrição
+Este projeto tem como objetivo facilitar o envio mensagens para o discord usando o Powershell.
 
-1. Instancia
-    1. cmdlet New-*
-    1. using module
-1. Estrutura
-    1. Conteudo
-    1. Embed
-    1. Nome de usuario (bot)
+## Sumario
+* [Discord-Metadata](https://github.com/Propeus/psc-discord-webhook/wiki/Discord-Metadata)
+* [Discord-Message](https://github.com/Propeus/psc-discord-webhook/wiki/Discord-Message)
+* [Discord-Embed](https://github.com/Propeus/psc-discord-webhook/wiki/Discord-Embed)
 
-## Instancia - cmdlet
+## Exemplos
 
+### cmdlet
+Instanciar e enviar mensagem simples
 ```powershell
+Import-Module "psc-discord-webhook.psd1" -Force -Global
 $metadata = New-DiscordMetadata -url_webhook $wh
-$metadata.message.content = "Conteudo"
+$message= $metadata.GoMessage();
+$message= $message.SetTitle("Titulo da mensagem")
+$message= $message.SetContent("Conteudo da mensagem")
 $metadata.SendMessage();
 ```
 
-## Instancia - using module
-
+Instanciar e enviar mensagem embed
 ```powershell
-[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
-$metadata.message.content = "Conteudo"
+Import-Module "psc-discord-webhook.psd1" -Force -Global
+$metadata = New-DiscordMetadata -url_webhook $wh
+$message= $metadata.GoMessage();
+$message= $message.SetUsername("Titulo da mensagem")
+$embed= $message.GoNewEmbed();
+$embed= $embed.SetTitle("Titulo do embed com link")
+$embed= $embed.SetDescription("Descrição do embed")
+$embed= $embed.SetUrl("https://github.com/Propeus/psc-discord-webhook/")
+$embed= $embed.SetColorName("Yellow");
+$embed= $embed.SetAutor("Nome do autor com link e icone","https://github.com/Propeus/","https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg");
+$embed= $embed.SetImage("https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg")
+$embed= $embed.SetThumbnail("https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg");
+$embed= $embed.SetFooter("Texto do footer com icone","https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg")
+$embed= $embed.SetTimestampNow();
+$embed= $embed.AddField("Versao","1.0");
+$embed= $embed.AddField("Liguagem","Powershell",$True);
+$embed= $embed.AddField("Edição do PS","Core",$True);
 $metadata.SendMessage();
 ```
 
----
-
-## Estrutura - Conteudo
-
+Instanciar e enviar mensagem embed (Envia varias mensagens exibindo cada propriedade)
 ```powershell
-[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
-$metadata.message.content = "Conteudo"
+Import-Module "psc-discord-webhook.psd1" -Force -Global
+$metadata = New-DiscordMetadata -url_webhook $wh
+$message= $metadata.GoMessage();
+$message= $message.SetUsername("Titulo da mensagem")
+$embed= $message.GoNewEmbed();
+$embed= $embed.SetTitle("Titulo do embed com link")
+$metadata.SendMessage();
+$embed= $embed.SetDescription("Descrição do embed")
+$metadata.SendMessage();
+$embed= $embed.SetUrl("https://github.com/Propeus/psc-discord-webhook/")
+$metadata.SendMessage();
+$embed= $embed.SetColorName("Yellow");
+$metadata.SendMessage();
+$embed= $embed.SetAutor("Nome do autor");
+$metadata.SendMessage();
+$embed= $embed.SetAutor("Nome do autor com link","https://github.com/Propeus/");
+$metadata.SendMessage();
+$embed= $embed.SetAutor("Nome do autor com link","https://github.com/Propeus/","https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg");
+$metadata.SendMessage();
+$embed= $embed.SetImage("https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg")
+$metadata.SendMessage();
+$embed= $embed.SetThumbnail("https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg");
+$metadata.SendMessage();
+$embed= $embed.SetFooter("Texto do footer")
+$metadata.SendMessage();
+$embed= $embed.SetFooter("Texto do footer com icone","https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg")
+$metadata.SendMessage();
+$embed= $embed.SetTimestampNow();
+$metadata.SendMessage();
+$embed= $embed.AddField("Versao","1.0");
+$metadata.SendMessage();
+$embed= $embed.AddField("Liguagem","Powershell",$True);
+$embed= $embed.AddField("Edição do PS","Core",$True);
 $metadata.SendMessage();
 ```
 
-## Estrutura - Embed (Propriedade)
-
+Instanciar e enviar mensagem embed concatenado as funções
 ```powershell
-[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
-$embed = $metadata.message.AddEmbed()
-$embed.title = "Titulo"
-$embed.url = "http://google.com"
-$embed.description = "Descricao embed"
-$embed.color = (Get-Color -nameColor "Red")
-$embed.color = [Colors]::Red
+Import-Module "psc-discord-webhook.psd1" -Force -Global
+$metadata = New-DiscordMetadata -url_webhook $wh
+$message= $metadata.GoMessage().SetUsername("Titulo da mensagem")
+$embed= $message.GoNewEmbed().SetTitle("Titulo do embed com link").SetDescription("Descrição do embed").SetUrl("https://github.com/Propeus/psc-discord-webhook/").SetColorName("Yellow").SetAutor("Nome do autor com link e icone","https://github.com/Propeus/","https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg").SetImage("https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg").SetThumbnail("https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg").SetFooter("Texto do footer com icone","https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg").SetTimestampNow().AddField("Versao","1.0").AddField("Liguagem","Powershell",$True).AddField("Edição do PS","Core",$True);
 $metadata.SendMessage();
 ```
-
-## Estrutura - Embed (Metodo)
-
-```powershell
-[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
-$embed = $metadata.message.AddEmbed("Titulo somente")
-$embed = $metadata.message.AddEmbed("Titulo com descricao","Descricao embed")
-$embed = $metadata.message.AddEmbed("Titulo com descricao e com link para o dog","Descricao embed","http://google.com")
-$embed = $metadata.message.AddEmbed("Titulo com descricao e com link para o dog + cor","Descricao embed","http://google.com","Red")
-$embed = $metadata.message.AddEmbed("Titulo com descricao e cor","Descricao embed",[Colors]::Red)
-$embed = $metadata.message.AddEmbed("Titulo com descricao e cor","Descricao embed",(Get-Color -nameColor "Red"))
-$metadata.SendMessage();
-```
-
-## Estrutura - Field (Metodo)
-
-```powershell
-[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
-$embed = $metadata.message.AddEmbed("Titulo com descricao","Descricao embed")
-$embed.AddField("Nome","Valor ")
-$embed.AddField("Nome","Valor em linha",$true)
-$embed.AddField("Nome","Valor em linha",$true)
-$metadata.SendMessage();
-```
-
-## Estrutura - Autor (Propriedade)
-
-```powershell
-[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
-$embed = $metadata.message.AddEmbed("Titulo com descricao","Descricao embed")
-$embed.GoAutor()
-$embed.author.name="Nome autor"
-$embed.author.url= $url
-$embed.author.icon_url =$url_icon
-$metadata.SendMessage();
-```
-
-## Estrutura - Autor (Metodo)
-
-```powershell
-[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
-$embed = $metadata.message.AddEmbed("Titulo com descricao","Descricao embed")
-$embed.SetAutor("Nome autor")
-# Ou
-$embed.SetAutor("Nome autor com link",$url)
-# Ou
-$embed.SetAutor("Nome autor com link e icone",$url,$url_icon)
-$metadata.SendMessage();
-```
-
