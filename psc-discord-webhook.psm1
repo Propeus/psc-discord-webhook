@@ -89,20 +89,6 @@ class DiscordMetadata {
         return $this.message;
     }
 
-    [bool]Validate([string]$Json, [bool]$outputConsole) {
-        [DiscordMessage]$msg = [DiscordMessage] (ConvertFrom-Json -InputObject $Json)
-        [System.Collections.Generic.List[Validator]]$errors_in = ([System.Collections.Generic.List[Validator]]::New());
-        $msg.Validate($errors_in);
-
-        if ($outputConsole) {
-            foreach ($erro in $errors_in) {
-                Write-Host "Parametro: $($erro.paramter)`nErro: $($erro.message)"
-            }
-        }
-
-        return $errors_in.count -eq 0;
-    }
-
     SendMessage() {
         if ($this.validate) {
             [System.Collections.Generic.List[Validator]]$errors = ([System.Collections.Generic.List[Validator]]::New());
@@ -120,7 +106,21 @@ class DiscordMetadata {
         else {
             Invoke-RestMethod -Method "Post" -Uri $this.url_webhook -Body $this.message.Generate() -ContentType "application/json; charset=$($this.encoding)"
         }
-    
+
+    }
+
+    static [bool]Validate([string]$Json, [bool]$outputConsole) {
+        [DiscordMessage]$msg = [DiscordMessage] (ConvertFrom-Json -InputObject $Json)
+        [System.Collections.Generic.List[Validator]]$errors_in = ([System.Collections.Generic.List[Validator]]::New());
+        $msg.Validate($errors_in);
+
+        if ($outputConsole) {
+            foreach ($erro in $errors_in) {
+                Write-Host "Parametro: $($erro.paramter)`nErro: $($erro.message)"
+            }
+        }
+
+        return $errors_in.count -eq 0;
     }
 
     static SendMessage([string]$Json) {
@@ -182,45 +182,39 @@ class DiscordMessage {
         $this.embeds.Add($embed);
         return $embed;
     }
-
-    [DiscordEmbed]AddEmbed([string]$title) {
+    [DiscordMessage]AddEmbed([string]$title) {
         [DiscordEmbed]$embed = [DiscordEmbed]::new($title);
         $this.embeds.Add($embed);
-        return $embed;
+        return $this;
     }
-
-    [DiscordEmbed]AddEmbed([string]$title, [string]$description) {
+    [DiscordMessage]AddEmbed([string]$title, [string]$description) {
         [DiscordEmbed]$embed = [DiscordEmbed]::new($title, $description);
         $this.embeds.Add($embed);
-        return $embed;
+        return $this;
     }
-
-    [DiscordEmbed]AddEmbed([string]$title, [string]$description, [string]$url) {
+    [DiscordMessage]AddEmbed([string]$title, [string]$description, [string]$url) {
         [DiscordEmbed]$embed = [DiscordEmbed]::new($title, $description, $url);
         $this.embeds.Add($embed);
-        return $embed;
+        return $this;
     }
-
-    [DiscordEmbed]AddEmbed([string]$title, [string]$description, [string]$url, [string]$color) {
+    [DiscordMessage]AddEmbed([string]$title, [string]$description, [string]$url, [string]$color) {
         [DiscordEmbed]$embed = [DiscordEmbed]::new($title, $description, $url, $color);
         $this.embeds.Add($embed);
-        return $embed;
+        return $this;
     }
-
-    [DiscordEmbed]AddEmbed([string]$title, [string]$description, [Colors]$color) {
+    [DiscordMessage]AddEmbed([string]$title, [string]$description, [Colors]$color) {
         [DiscordEmbed]$embed = [DiscordEmbed]::new($title, $description, $color);
         $this.embeds.Add($embed);
-        return $embed;
+        return $this;
     }
-
 
     [string]Generate() {
         return ConvertTo-Json $this -Depth 4
     }
 
-    Validate([System.Collections.Generic.List[Validator]]$errors) {
-      
-        if ($this.content -and $this.embeds) {
+    hidden  Validate([System.Collections.Generic.List[Validator]]$errors) {
+
+        if (($this.content -eq $null) -and (($this.embeds -eq $null) -or ($this.embeds.count -eq 0))) {
             $errors.Add([Validator]::new("DiscordMessage::content", "Deve ser preenchido um dos parametros indicados"))
             $errors.Add([Validator]::new("DiscordMessage::embeds", "Deve ser preenchido um dos parametros indicados"))
         }
@@ -271,7 +265,7 @@ class DiscordEmbedAutor {
         return $this
     }
 
-    
+
 
     Validate([System.Collections.Generic.List[Validator]]$errors) {
         if ($null -eq $this.name) {
@@ -356,7 +350,7 @@ class DiscordEmbedImage {
 
     Validate([System.Collections.Generic.List[Validator]]$errors) {
         if ($null -eq $this.url) {
-            $errors.Add([Validator]::new("DiscordEmbedField::url", "O parametro nao pode ser nulo"))
+            $errors.Add([Validator]::new("DiscordEmbedImage::url", "O parametro nao pode ser nulo"))
         }
     }
 }
@@ -439,29 +433,17 @@ class DiscordEmbed {
 
     DiscordEmbed() {
         $this.color = [Colors]::Aqua
-        $this.author = $this.GoAutor()
-        $this.image = $this.GoImage()
-        $this.thumbnail = $this.GoThumbnail()
-        $this.footer = $this.GoFooter()
     }
 
     DiscordEmbed([string]$title) {
         $this.title = $title;
         $this.color = [Colors]::Aqua
-        $this.author = $this.GoAutor()
-        $this.image = $this.GoImage()
-        $this.thumbnail = $this.GoThumbnail()
-        $this.footer = $this.GoFooter()
     }
 
     DiscordEmbed([string]$title, [string]$description) {
         $this.title = $title;
         $this.description = $description;
         $this.color = [Colors]::Aqua
-        $this.author = $this.GoAutor()
-        $this.image = $this.GoImage()
-        $this.thumbnail = $this.GoThumbnail()
-        $this.footer = $this.GoFooter()
     }
 
     DiscordEmbed([string]$title, [string]$description, [string]$url) {
@@ -469,20 +451,12 @@ class DiscordEmbed {
         $this.description = $description;
         $this.url = $url;
         $this.color = [Colors]::Aqua
-        $this.author = $this.GoAutor()
-        $this.image = $this.GoImage()
-        $this.thumbnail = $this.GoThumbnail()
-        $this.footer = $this.GoFooter()
     }
 
     DiscordEmbed([string]$title, [string]$description, [Colors]$color) {
         $this.title = $title;
         $this.description = $description;
         $this.color = $color;
-        $this.author = $this.GoAutor()
-        $this.image = $this.GoImage()
-        $this.thumbnail = $this.GoThumbnail()
-        $this.footer = $this.GoFooter()
     }
 
     DiscordEmbed([string]$title, [string]$description, [string]$url, [string]$color) {
@@ -490,10 +464,6 @@ class DiscordEmbed {
         $this.description = $description;
         $this.color = (Get-DiscordColor -nameColor $color);
         $this.url = $url;
-        $this.author = $this.GoAutor()
-        $this.image = $this.GoImage()
-        $this.thumbnail = $this.GoThumbnail()
-        $this.footer = $this.GoFooter()
     }
 
     [DiscordEmbed]SetTitle([string]$title) {
@@ -522,7 +492,9 @@ class DiscordEmbed {
     }
 
     [DiscordEmbedAutor]GoAutor() {
+      if($this.author -eq $null){
         $this.author = [DiscordEmbedAutor]::New($this);
+      }
         return $this.author;
     }
     [DiscordEmbed]SetAutor([string]$name) {
@@ -556,7 +528,9 @@ class DiscordEmbed {
     }
 
     [DiscordEmbedImage]GoImage() {
+      if($this.image -eq $null){
         $this.image = [DiscordEmbedImage]::New($this);
+      }
         return $this.image;
     }
     [DiscordEmbed]SetImage([string]$url) {
@@ -565,7 +539,9 @@ class DiscordEmbed {
     }
 
     [DiscordEmbedThumbnail]GoThumbnail() {
-        $this.thumbnail = [DiscordEmbedThumbnail]::New($this);
+        if($this.thumbnail -eq $null){
+          $this.thumbnail = [DiscordEmbedThumbnail]::New($this);
+        }
         return $this.thumbnail;
     }
     [DiscordEmbed]SetThumbnail([string]$url) {
@@ -574,7 +550,10 @@ class DiscordEmbed {
     }
 
     [DiscordEmbedFooter]GoFooter() {
-        $this.footer = [DiscordEmbedFooter]::New($this);
+        if($this.footer -eq $null){
+          $this.footer = [DiscordEmbedFooter]::New($this);
+        }
+
         return $this.footer;
     }
     [DiscordEmbed]SetFooter([string]$text) {
@@ -601,7 +580,7 @@ class DiscordEmbed {
             $errors.Add([Validator]::new("DiscordEmbedFooter::footer", "Deve ser preenchido um dos parametros indicados"))
             $errors.Add([Validator]::new("DiscordEmbedFooter::thumbnail", "Deve ser preenchido um dos parametros indicados"))
         }
-      
+
         if ($this.author) {
             $IsValid = $IsValid -and $this.author.Validate($errors);
         }
@@ -620,7 +599,7 @@ class DiscordEmbed {
     }
 
 
-    
+
 }
 
 function New-DiscordMetadata {
@@ -634,7 +613,7 @@ function New-DiscordMetadata {
     begin {
         [DiscordMetadata]::new($url_webhook)
     }
-    
+
 }
 function Export-DiscordColors {
     param (
@@ -643,7 +622,7 @@ function Export-DiscordColors {
     process {
         return [enum]::GetNames([Colors]);
     }
-    
+
 }
 function Get-DiscordColor {
     param (
@@ -652,7 +631,7 @@ function Get-DiscordColor {
         [string]
         $nameColor
     )
-    
+
     process {
         return [enum]::Parse([Colors], $nameColor)
     }
