@@ -214,7 +214,7 @@ class DiscordMessage {
 
     hidden  Validate([System.Collections.Generic.List[Validator]]$errors) {
 
-        if (($this.content -eq $null) -and (($this.embeds -eq $null) -or ($this.embeds.count -eq 0))) {
+        if (($null -eq $this.content) -and (($null -eq $this.embeds) -or ($this.embeds.count -eq 0))) {
             $errors.Add([Validator]::new("DiscordMessage::content", "Deve ser preenchido um dos parametros indicados"))
             $errors.Add([Validator]::new("DiscordMessage::embeds", "Deve ser preenchido um dos parametros indicados"))
         }
@@ -492,7 +492,7 @@ class DiscordEmbed {
     }
 
     [DiscordEmbedAuthor]GoAuthor() {
-      if($this.author -eq $null){
+      if($null -eq $this.author){
         $this.author = [DiscordEmbedAuthor]::New($this);
       }
         return $this.author;
@@ -528,7 +528,7 @@ class DiscordEmbed {
     }
 
     [DiscordEmbedImage]GoImage() {
-      if($this.image -eq $null){
+      if($null -eq $this.image){
         $this.image = [DiscordEmbedImage]::New($this);
       }
         return $this.image;
@@ -539,7 +539,7 @@ class DiscordEmbed {
     }
 
     [DiscordEmbedThumbnail]GoThumbnail() {
-        if($this.thumbnail -eq $null){
+        if($null -eq $this.thumbnail){
           $this.thumbnail = [DiscordEmbedThumbnail]::New($this);
         }
         return $this.thumbnail;
@@ -550,7 +550,7 @@ class DiscordEmbed {
     }
 
     [DiscordEmbedFooter]GoFooter() {
-        if($this.footer -eq $null){
+        if($null -eq $this.footer){
           $this.footer = [DiscordEmbedFooter]::New($this);
         }
 
