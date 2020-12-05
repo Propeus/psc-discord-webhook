@@ -24,10 +24,10 @@ Classe de constrói um embed para a mensagem
   * [DiscordEmbed]SetDescription([string]$description)
   * [DiscordEmbed]SetUrl([string]$url)
   * [DiscordEmbed]SetColorName([string]$color)
-  * [DiscordEmbedAutor]GoAutor()
-  * [DiscordEmbed]SetAutor([string]$name)
-  * [DiscordEmbed]SetAutor([string]$name, [string]$url)
-  * [DiscordEmbed]SetAutor([string]$name, [string]$url, [string]$icon_url)
+  * [DiscordEmbedAuthor]GoAuthor()
+  * [DiscordEmbed]SetAuthor([string]$name)
+  * [DiscordEmbed]SetAuthor([string]$name, [string]$url)
+  * [DiscordEmbed]SetAuthor([string]$name, [string]$url, [string]$icon_url)
   * [DiscordEmbedImage]GoImage()
   * [DiscordEmbed]SetImage([string]$url)
   * [DiscordEmbedThumbnail]GoThumbnail()
@@ -69,7 +69,7 @@ Classe de constrói um embed para a mensagem
 
 ### author
 * Descrição: Define um autor para a embed
-* Tipo: DiscordEmbedAutor
+* Tipo: DiscordEmbedAuthor
 * Obrigatório: Não
 * Valor padrão: N/A
 
@@ -166,13 +166,13 @@ Classe de constrói um embed para a mensagem
 * Estático: Não
 * Parametros: N/A
 
-### GoAutor
+### GoAuthor
 * Descrição: Cria um autor para o embed
-* Retorno: DiscordEmbedAutor
+* Retorno: DiscordEmbedAuthor
 * Estático: Não
 * Parametros: N/A
 
-### SetAutor
+### SetAuthor
 * Descrição: Define um autor para o embed
 * Retorno: DiscordEmbed
 * Estático: Não
@@ -183,7 +183,7 @@ Classe de constrói um embed para a mensagem
     * Obrigatório: Sim
     * Valor padrão: N/A
 
-### SetAutor
+### SetAuthor
 * Descrição: Define um autor para o embed
 * Retorno: DiscordEmbed
 * Estático: Não
@@ -199,7 +199,7 @@ Classe de constrói um embed para a mensagem
     * Obrigatório: Sim
     * Valor padrão: N/A
 
-### SetAutor
+### SetAuthor
 * Descrição: Define um autor para o embed
 * Retorno: DiscordEmbed
 * Estático: Não
@@ -399,7 +399,7 @@ Definindo nome do autor do embed por função
 $metadata = New-DiscordMetadata -url_webhook $wh
 $message= $metadata.GoMessage();
 $embed= $message.GoNewEmbed();
-$embed= $embed.SetAutor("nome autor");
+$embed= $embed.SetAuthor("nome autor");
 $metadata.SendMessage();
 ```
 
@@ -408,7 +408,7 @@ Definindo nome do autor e link do embed por função
 $metadata = New-DiscordMetadata -url_webhook $wh
 $message= $metadata.GoMessage();
 $embed= $message.GoNewEmbed();
-$embed= $embed.SetAutor("nome autor","https://github.com/Propeus/psc-discord-webhook/");
+$embed= $embed.SetAuthor("nome autor","https://github.com/Propeus/psc-discord-webhook/");
 $metadata.SendMessage();
 ```
 
@@ -417,7 +417,7 @@ Definindo nome do autor e link com icone do embed por função
 $metadata = New-DiscordMetadata -url_webhook $wh
 $message= $metadata.GoMessage();
 $embed= $message.GoNewEmbed();
-$embed= $embed.SetAutor("nome autor","https://github.com/Propeus/psc-discord-webhook/","https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg");
+$embed= $embed.SetAuthor("nome autor","https://github.com/Propeus/psc-discord-webhook/","https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg");
 $metadata.SendMessage();
 
 ```

@@ -30,7 +30,7 @@ $embed= $embed.SetTitle("Titulo do embed com link")
 $embed= $embed.SetDescription("Descrição do embed")
 $embed= $embed.SetUrl("https://github.com/Propeus/psc-discord-webhook/")
 $embed= $embed.SetColorName("Yellow");
-$embed= $embed.SetAutor("Nome do autor com link e icone","https://github.com/Propeus/","https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg");
+$embed= $embed.SetAuthor("Nome do autor com link e icone","https://github.com/Propeus/","https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg");
 $embed= $embed.SetImage("https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg")
 $embed= $embed.SetThumbnail("https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg");
 $embed= $embed.SetFooter("Texto do footer com icone","https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg")
@@ -56,11 +56,11 @@ $embed= $embed.SetUrl("https://github.com/Propeus/psc-discord-webhook/")
 $metadata.SendMessage();
 $embed= $embed.SetColorName("Yellow");
 $metadata.SendMessage();
-$embed= $embed.SetAutor("Nome do autor");
+$embed= $embed.SetAuthor("Nome do autor");
 $metadata.SendMessage();
-$embed= $embed.SetAutor("Nome do autor com link","https://github.com/Propeus/");
+$embed= $embed.SetAuthor("Nome do autor com link","https://github.com/Propeus/");
 $metadata.SendMessage();
-$embed= $embed.SetAutor("Nome do autor com link","https://github.com/Propeus/","https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg");
+$embed= $embed.SetAuthor("Nome do autor com link","https://github.com/Propeus/","https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg");
 $metadata.SendMessage();
 $embed= $embed.SetImage("https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg")
 $metadata.SendMessage();
@@ -84,6 +84,6 @@ Instanciar e enviar mensagem embed concatenado as funções
 Import-Module "psc-discord-webhook.psd1" -Force -Global
 $metadata = New-DiscordMetadata -url_webhook $wh
 $message= $metadata.GoMessage().SetUsername("Titulo da mensagem")
-$embed= $message.GoNewEmbed().SetTitle("Titulo do embed com link").SetDescription("Descrição do embed").SetUrl("https://github.com/Propeus/psc-discord-webhook/").SetColorName("Yellow").SetAutor("Nome do autor com link e icone","https://github.com/Propeus/","https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg").SetImage("https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg").SetThumbnail("https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg").SetFooter("Texto do footer com icone","https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg").SetTimestampNow().AddField("Versao","1.0").AddField("Liguagem","Powershell",$True).AddField("Edição do PS","Core",$True);
+$embed= $message.GoNewEmbed().SetTitle("Titulo do embed com link").SetDescription("Descrição do embed").SetUrl("https://github.com/Propeus/psc-discord-webhook/").SetColorName("Yellow").SetAuthor("Nome do autor com link e icone","https://github.com/Propeus/","https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg").SetImage("https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg").SetThumbnail("https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg").SetFooter("Texto do footer com icone","https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg").SetTimestampNow().AddField("Versao","1.0").AddField("Liguagem","Powershell",$True).AddField("Edição do PS","Core",$True);
 $metadata.SendMessage();
 ```
