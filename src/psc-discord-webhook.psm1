@@ -306,7 +306,7 @@ class DiscordEmbedField {
         $this.value = $value;
         return $this;
     }
-    [DiscordEmbedField]SetInline([string]$inline) {
+    [DiscordEmbedField]SetInline([bool]$inline) {
         $this.inline = $inline;
         return $this;
     }

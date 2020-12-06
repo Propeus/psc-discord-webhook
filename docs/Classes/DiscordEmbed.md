@@ -495,3 +495,228 @@ $metadata.SendMessage();
 ```
 
 ### using module
+Definindo titulo do embed
+```powershell
+[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
+[DiscordMessage]$message= $metadata.GoMessage();
+[DiscordEmbed]$embed = [DiscordEmbed]::new()
+$embed.title = "titulo";
+$message.embeds.Add($embed);
+$metadata.SendMessage();
+```
+
+Definindo descrição do embed
+```powershell
+[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
+[DiscordMessage]$message= $metadata.GoMessage();
+[DiscordEmbed]$embed = [DiscordEmbed]::new();
+$embed.description = "descricao";
+$message.embeds.Add($embed);
+$metadata.SendMessage();
+```
+
+Definindo link do embed
+```powershell
+[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
+[DiscordMessage]$message= $metadata.GoMessage();
+[DiscordEmbed]$embed = [DiscordEmbed]::new();
+$embed.title = "titulo";
+$embed.url = "https://github.com/Propeus/psc-discord-webhook/";
+$message.embeds.Add($embed);
+$metadata.SendMessage();
+```
+
+Definindo titulo do embed por função
+```powershell
+[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
+[DiscordMessage]$message= $metadata.GoMessage();
+[DiscordEmbed]$embed = [DiscordEmbed]::new();
+$embed= $embed.SetTitle("titulo");
+$message.embeds.Add($embed);
+$metadata.SendMessage();
+```
+
+Definindo descrição do embed por função
+```powershell
+[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
+[DiscordMessage]$message= $metadata.GoMessage();
+[DiscordEmbed]$embed = [DiscordEmbed]::new();
+$embed= $embed.SetDescription("descricao");
+$message.embeds.Add($embed);
+$metadata.SendMessage();
+```
+
+Definindo link do embed por função
+```powershell
+[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh);
+[DiscordMessage]$message= $metadata.GoMessage();
+[DiscordEmbed]$embed = [DiscordEmbed]::new();
+$embed= $embed.SetTitle("titulo");
+$embed= $embed.SetUrl("https://github.com/Propeus/psc-discord-webhook/");
+$message.embeds.Add($embed);
+$metadata.SendMessage();
+```
+
+Definindo cor do embed por função
+```powershell
+[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh);
+[DiscordMessage]$message= $metadata.GoMessage();
+[DiscordEmbed]$embed = [DiscordEmbed]::new();
+$embed= $embed.SetTitle("titulo");
+$embed= $embed.SetColorName("Red");
+$message.embeds.Add($embed);
+$metadata.SendMessage();
+```
+
+Definindo nome do autor do embed por função
+```powershell
+[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
+[DiscordMessage]$message= $metadata.GoMessage();
+[DiscordEmbed]$embed = [DiscordEmbed]::new()
+$embed= $embed.SetAuthor("nome autor");
+$message.embeds.Add($embed);
+$metadata.SendMessage();
+```
+
+Definindo nome do autor e link do embed por função
+```powershell
+[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
+[DiscordMessage]$message= $metadata.GoMessage();
+[DiscordEmbed]$embed = [DiscordEmbed]::new()
+$embed= $embed.SetAuthor("nome autor","https://github.com/Propeus/psc-discord-webhook/");
+$message.embeds.Add($embed);
+$metadata.SendMessage();
+```
+
+Definindo nome do autor e link com icone do embed por função
+```powershell
+[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
+[DiscordMessage]$message= $metadata.GoMessage();
+[DiscordEmbed]$embed = [DiscordEmbed]::new()
+$embed= $embed.SetAuthor("nome autor","https://github.com/Propeus/psc-discord-webhook/","https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg");
+$message.embeds.Add($embed);
+$metadata.SendMessage();
+
+```
+
+Definindo url de imagem no embed por função
+```powershell
+[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
+[DiscordMessage]$message= $metadata.GoMessage();
+[DiscordEmbed]$embed = [DiscordEmbed]::new()
+$embed= $embed.SetImage("https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg");
+$message.embeds.Add($embed);
+$metadata.SendMessage();
+```
+
+Definindo url de thumbnail no embed por função
+```powershell
+[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
+[DiscordMessage]$message= $metadata.GoMessage();
+[DiscordEmbed]$embed = [DiscordEmbed]::new()
+$embed= $embed.SetThumbnail("https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg");
+$message.embeds.Add($embed);
+$metadata.SendMessage();
+```
+
+Definindo texto no rodapé do embed por função
+```powershell
+[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
+[DiscordMessage]$message= $metadata.GoMessage();
+[DiscordEmbed]$embed = [DiscordEmbed]::new()
+$embed= $embed.SetFooter("Texto do footer");
+$message.embeds.Add($embed);
+$metadata.SendMessage();
+```
+
+Definindo texto no rodapé com icone do embed por função
+```powershell
+[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
+[DiscordMessage]$message= $metadata.GoMessage();
+[DiscordEmbed]$embed = [DiscordEmbed]::new()
+$embed= $embed.SetFooter("Texto do footer","https://img2.gratispng.com/20180824/jtl/kisspng-computer-icons-logo-portable-network-graphics-clip-icons-for-free-iconza-circle-social-5b7fe46b0bac53.1999041115351082030478.jpg");
+$message.embeds.Add($embed);
+$metadata.SendMessage();
+```
+
+Definindo uma data no rodapé do embed por função
+```powershell
+[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
+[DiscordMessage]$message= $metadata.GoMessage();
+[DiscordEmbed]$embed = [DiscordEmbed]::new()
+$embed= $embed.SetTimestamp((Get-Date));
+$message.embeds.Add($embed);
+$metadata.SendMessage();
+```
+
+Definindo uma data atual no rodapé do embed por função
+```powershell
+[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
+[DiscordMessage]$message= $metadata.GoMessage();
+[DiscordEmbed]$embed = [DiscordEmbed]::new()
+$embed= $embed.SetTimestampNow();
+$message.embeds.Add($embed);
+$metadata.SendMessage();
+```
+
+Definindo um campo com nome e valor no embed por função
+```powershell
+[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
+[DiscordMessage]$message= $metadata.GoMessage();
+[DiscordEmbed]$embed = [DiscordEmbed]::new()
+$embed.AddField("Nome","valor");
+$message.embeds.Add($embed);
+$metadata.SendMessage();
+```
+
+Definindo um campo com nome e valor em linha no embed por função
+```powershell
+[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
+[DiscordMessage]$message= $metadata.GoMessage();
+[DiscordEmbed]$embed = [DiscordEmbed]::new()
+$embed.AddField("Nome","valor",$true);
+$message.embeds.Add($embed);
+$metadata.SendMessage();
+```
+
+Definindo titulo do embed por construtor
+```powershell
+[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
+[DiscordMessage]$message= $metadata.GoMessage();
+[DiscordEmbed]$embed = [DiscordEmbed]::new("titulo");
+$message.embeds.Add($embed);
+$metadata.SendMessage();
+```
+
+Definindo descrição do embed por construtor
+```powershell
+[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh)
+[DiscordMessage]$message= $metadata.GoMessage();
+[DiscordEmbed]$embed = [DiscordEmbed]::new("titulo","descricao");
+$message.embeds.Add($embed);
+$metadata.SendMessage();
+```
+
+Definindo link do embed por construtor
+```powershell
+[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh);
+[DiscordMessage]$message= $metadata.GoMessage();
+[DiscordEmbed]$embed = [DiscordEmbed]::new("titulo","descricao","https://github.com/Propeus/psc-discord-webhook/");
+$message.embeds.Add($embed);
+$metadata.SendMessage();
+```
+
+Definindo cor do embed por construtor
+```powershell
+[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh);
+[DiscordMessage]$message= $metadata.GoMessage();
+[DiscordEmbed]$embed = [DiscordEmbed]::new("titulo","descricao",[Colors]::Red);
+$message.embeds.Add($embed);
+$metadata.SendMessage();
+
+[DiscordMetadata]$metadata = [DiscordMetadata]::new($wh);
+[DiscordMessage]$message= $metadata.GoMessage();
+[DiscordEmbed]$embed = [DiscordEmbed]::new("titulo","descricao","https://github.com/Propeus/psc-discord-webhook/","Red");
+$message.embeds.Add($embed);
+$metadata.SendMessage();
+```
