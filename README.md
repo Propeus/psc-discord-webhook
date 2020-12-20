@@ -5,6 +5,11 @@ Este projeto tem como objetivo facilitar o envio mensagens para o discord usando
 * [Discord-Metadata](https://github.com/Propeus/psc-discord-webhook/wiki/Discord-Metadata)
 * [Discord-Message](https://github.com/Propeus/psc-discord-webhook/wiki/Discord-Message)
 * [Discord-Embed](https://github.com/Propeus/psc-discord-webhook/wiki/Discord-Embed)
+* [Discord-Embed-Autor](https://github.com/Propeus/psc-discord-webhook/wiki/Discord-Embed-Autor)
+* [Discord-Embed-Field](https://github.com/Propeus/psc-discord-webhook/wiki/Discord-Embed-Field)
+* [Discord-Embed-Footer](https://github.com/Propeus/psc-discord-webhook/wiki/Discord-Embed-Footer)
+* [Discord-Embed-Image](https://github.com/Propeus/psc-discord-webhook/wiki/Discord-Embed-Image)
+* [Discord-Embed-Thumbnail](https://github.com/Propeus/psc-discord-webhook/wiki/Discord-Embed-Thumbnail)
 
 ## Exemplos
 

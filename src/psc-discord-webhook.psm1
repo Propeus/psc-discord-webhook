@@ -214,7 +214,7 @@ class DiscordMessage {
 
     hidden  Validate([System.Collections.Generic.List[Validator]]$errors) {
 
-        if (($this.content -eq $null) -and (($this.embeds -eq $null) -or ($this.embeds.count -eq 0))) {
+        if (($null -eq $this.content) -and (($null -eq $this.embeds) -or ($this.embeds.count -eq 0))) {
             $errors.Add([Validator]::new("DiscordMessage::content", "Deve ser preenchido um dos parametros indicados"))
             $errors.Add([Validator]::new("DiscordMessage::embeds", "Deve ser preenchido um dos parametros indicados"))
         }
@@ -225,13 +225,13 @@ class DiscordMessage {
     }
 }
 
-class DiscordEmbedAutor {
+class DiscordEmbedAuthor {
     [string]$name
     [string]$url
     [string]$icon_url
     hidden[DiscordEmbed]$father
 
-    DiscordEmbedAutor([DiscordEmbed]$father) {
+    DiscordEmbedAuthor([DiscordEmbed]$father) {
         $this.father = $father;
     }
     [DiscordEmbed]ReturnToEmbed() {
@@ -239,28 +239,28 @@ class DiscordEmbedAutor {
     }
 
 
-    DiscordEmbedAutor([string]$name) {
+    DiscordEmbedAuthor([string]$name) {
         $this.name = $name;
     }
-    DiscordEmbedAutor([string]$name, [string]$url) {
+    DiscordEmbedAuthor([string]$name, [string]$url) {
         $this.name = $name;
         $this.url = $url;
     }
-    DiscordEmbedAutor([string]$name, [string]$url, [string]$icon_url) {
+    DiscordEmbedAuthor([string]$name, [string]$url, [string]$icon_url) {
         $this.name = $name;
         $this.url = $url;
         $this.icon_url = $icon_url;
     }
 
-    [DiscordEmbedAutor]SetName([string]$name) {
+    [DiscordEmbedAuthor]SetName([string]$name) {
         $this.name = $name;
         return $this
     }
-    [DiscordEmbedAutor]SetUrl([string]$url) {
+    [DiscordEmbedAuthor]SetUrl([string]$url) {
         $this.url = $url;
         return $this
     }
-    [DiscordEmbedAutor]SetIconUrl([string]$icon_url) {
+    [DiscordEmbedAuthor]SetIconUrl([string]$icon_url) {
         $this.icon_url = $icon_url;
         return $this
     }
@@ -269,7 +269,7 @@ class DiscordEmbedAutor {
 
     Validate([System.Collections.Generic.List[Validator]]$errors) {
         if ($null -eq $this.name) {
-            $errors.Add([Validator]::new("DiscordEmbedAutor::name", "O parametro nao pode ser nulo"))
+            $errors.Add([Validator]::new("DiscordEmbedAuthor::name", "O parametro nao pode ser nulo"))
         }
     }
 }
@@ -306,7 +306,7 @@ class DiscordEmbedField {
         $this.value = $value;
         return $this;
     }
-    [DiscordEmbedField]SetInline([string]$inline) {
+    [DiscordEmbedField]SetInline([bool]$inline) {
         $this.inline = $inline;
         return $this;
     }
@@ -423,7 +423,7 @@ class DiscordEmbed {
     [string]$description
     [string]$url
     [Colors]$color
-    [DiscordEmbedAutor]$author
+    [DiscordEmbedAuthor]$author
     [DiscordEmbedImage]$image
     [DiscordEmbedThumbnail]$thumbnail
     [DiscordEmbedFooter]$footer
@@ -491,22 +491,22 @@ class DiscordEmbed {
         return $this;
     }
 
-    [DiscordEmbedAutor]GoAutor() {
-      if($this.author -eq $null){
-        $this.author = [DiscordEmbedAutor]::New($this);
+    [DiscordEmbedAuthor]GoAuthor() {
+      if($null -eq $this.author){
+        $this.author = [DiscordEmbedAuthor]::New($this);
       }
         return $this.author;
     }
-    [DiscordEmbed]SetAutor([string]$name) {
-        $this.author = [DiscordEmbedAutor]::New($name);
+    [DiscordEmbed]SetAuthor([string]$name) {
+        $this.author = [DiscordEmbedAuthor]::New($name);
         return $this;
     }
-    [DiscordEmbed]SetAutor([string]$name, [string]$url) {
-        $this.author = [DiscordEmbedAutor]::New($name, $url);
+    [DiscordEmbed]SetAuthor([string]$name, [string]$url) {
+        $this.author = [DiscordEmbedAuthor]::New($name, $url);
         return $this;
     }
-    [DiscordEmbed]SetAutor([string]$name, [string]$url, [string]$icon_url) {
-        $this.author = [DiscordEmbedAutor]::New($name, $url, $icon_url);
+    [DiscordEmbed]SetAuthor([string]$name, [string]$url, [string]$icon_url) {
+        $this.author = [DiscordEmbedAuthor]::New($name, $url, $icon_url);
         return $this;
     }
 
@@ -528,7 +528,7 @@ class DiscordEmbed {
     }
 
     [DiscordEmbedImage]GoImage() {
-      if($this.image -eq $null){
+      if($null -eq $this.image){
         $this.image = [DiscordEmbedImage]::New($this);
       }
         return $this.image;
@@ -539,7 +539,7 @@ class DiscordEmbed {
     }
 
     [DiscordEmbedThumbnail]GoThumbnail() {
-        if($this.thumbnail -eq $null){
+        if($null -eq $this.thumbnail){
           $this.thumbnail = [DiscordEmbedThumbnail]::New($this);
         }
         return $this.thumbnail;
@@ -550,7 +550,7 @@ class DiscordEmbed {
     }
 
     [DiscordEmbedFooter]GoFooter() {
-        if($this.footer -eq $null){
+        if($null -eq $this.footer){
           $this.footer = [DiscordEmbedFooter]::New($this);
         }
 
